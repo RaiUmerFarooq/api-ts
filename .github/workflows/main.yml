@@ -1,0 +1,46 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Build Project
+      run: |
+        # Add commands to build your project
+        # For example, if it's a Node.js project:
+        npm install
+        npm run build
+
+  static-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Run Semgrep
+      run: |
+        # Add commands to run Semgrep for static analysis
+        # For example:
+        semgrep --config your-semgrep-config.yml
+
+  build-docker:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Build Docker Image
+      run: |
+        # Add commands to build your Docker image
+        docker build -t your-docker-image-name:latest .
